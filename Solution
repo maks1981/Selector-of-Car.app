@@ -1,0 +1,156 @@
+HTML file for our app below
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Todo List</title>
+	<link rel="stylesheet" type="text/css" href="assets/css/newapponjquery.css">
+	<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	<script type="text/javascript" src="assets/js/lib/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+
+<div id="container">
+	<h1>Selection of Car <i class="fas fa-car"></i></h1>
+	<input type="text" placeholder="Add New Model">
+
+	<ul>
+		<li><span><i class="fas fa-trash"></i></span> Maseratti</li>
+		<li><span><i class="fas fa-trash"></i></span> Lamborghini</li>
+		<li><span><i class="fas fa-trash"></i></span> Mercedes-Benz</li>
+	</ul>
+</div>
+
+
+
+
+<script type="text/javascript" src="assets/js/newapponjquery.js"></script>
+</body>
+</html>
+
+CSS file for our app below
+
+#container {
+	/*border: 2px solid lightblue;*/
+	width: 360px;
+	margin: 100px auto;
+	background: #f7f7f7;
+	-moz-box-shadow:10px 10px 5px #000000;
+    -webkit-box-shadow:10px 10px 5px #000000;
+    /*box-shadow: 0px 5px 5px #000000;*/
+    box-shadow: 0px -2px 12px #998713;
+}
+
+h1 {
+	background: #2980b9;
+	color: white;
+	margin: 0;
+	padding: 10px 20px;
+	text-transform: uppercase;
+	font-size: 24px;
+	font-weight: normal;
+}
+ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+li {
+	background: #fff;
+	height: 40px;
+	color: #666;
+	line-height: 40px;
+	text-shadow: 2px 1px 2px orange;
+	text-transform: uppercase;
+	/*padding-left: 0;*/
+}
+li:nth-child(2n){
+	background: #f7f7f7;
+}
+
+body {
+	font-family: Lobster;
+	letter-spacing: .2rem;
+	background: #f79d00;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #64f38c, #f79d00);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #64f38c, #f79d00); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.fa-car {
+	float: right;
+	color: black;
+	text-shadow: 1px 1px 1px;
+}
+.fas-trash {
+	float: left;
+}
+
+.completed {
+	color: gray;
+	text-decoration: line-through;
+}
+
+input {
+    background-color: #f7f7f7;
+    font-size: 18px;
+    width: 100%;
+    padding: 13px 13px 13px 20px;
+    box-sizing: border-box;
+    color: #2980b9;
+    border: 3px solid rgba(0,0,0,0);
+}
+
+input:focus {
+	background-color: #fff;
+	border: 3px solid #2980b9;
+	outline: none;
+}
+span {
+	background: rgba(136, 49, 213, 1);
+	height: 40px;
+	width: 0;
+	margin-right: 20px;
+	text-align: center;
+	color: white;
+	display: inline-block;
+	transition: 0.8s linear;
+	opacity: 0;
+}
+
+li:hover span {
+	width: 40px;
+	opacity: 1.0;
+}
+
+ Js file for our app below
+
+// Check Off Specific Selector By Clicking
+$("ul").on("click", "li", function(){
+	$(this).toggleClass("completed");
+});
+
+
+// Click on X to delete Select
+$("ul").on("click", "span", function(event){
+	$(this).parent().fadeOut(500,function(){
+		$(this).remove();
+	});
+	event.stopPropagation();
+});
+
+$("input[type='text']").keypress(function(event){
+	if(event.which === 13){
+		// grabbing new car text from input
+		var todoText = $(this).val();
+		$(this).val("");
+		// create a new li and add to ul
+		// we can use append() to add from bottom, 
+		// by prepend() we add from begenning dates.
+		$("ul").prepend("<li><span><i class='fas fa-trash'></i></span> " + todoText + "</li>")
+	}
+});
+
+$(".fa-car").click(function(){
+	$("input[type='text']").fadeToggle();
+});
+
